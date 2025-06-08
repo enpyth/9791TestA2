@@ -6,8 +6,8 @@ import org.racing.track.WeatherCondition;
 
 public class Main {
     public static void main(String[] args) {
-        RacingSimulation simulation = new RacingSimulation("Speed Demon", "Turbo V6", "Soft Compound", "Standard Kit", "Technical Park", 5, WeatherCondition.DRY);
-        RaceStrategy strategy = simulation.runSimulation();
+        RacingSimulation simulation = new RacingSimulation("car", "V10", "Soft Compound", "Low-Drag Kit", "Speedway Oval", 50, WeatherCondition.DRY, 100);
+        RaceStrategy strategy = simulation.run();
         System.out.println(strategy);
     }
 }

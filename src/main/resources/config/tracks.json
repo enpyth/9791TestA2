@@ -25,7 +25,7 @@
       "length": 5.8,
       "corners": 12,
       "type": "MIXED",
-      "defaultWeather": "VARIABLE",
+      "defaultWeather": "DRY",
       "averageSpeed": 160.0,
       "gripLevel": 2.0,
       "description": "Challenging mountain circuit with varying weather conditions"
@@ -45,7 +45,7 @@
       "length": 4.5,
       "corners": 10,
       "type": "MIXED",
-      "defaultWeather": "VARIABLE",
+      "defaultWeather": "DRY",
       "averageSpeed": 190.0,
       "gripLevel": 2.1,
       "description": "Coastal circuit with long straights and technical sections"

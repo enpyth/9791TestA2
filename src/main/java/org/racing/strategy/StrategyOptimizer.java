@@ -4,6 +4,7 @@ import org.racing.car.RaceCar;
 import org.racing.car.Tyre;
 import org.racing.config.ConfigurationManager;
 import org.racing.track.Track;
+import org.racing.track.WeatherCondition;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,26 +22,34 @@ public class StrategyOptimizer {
     private final double tyreWearThreshold;
     private final double pitStopDuration;
     private final double fuelFillRate;
+    private final double fuelCapacity;
 
     public StrategyOptimizer(RaceCar raceCar, Track track, int totalLaps) {
+        this(raceCar, track, totalLaps, 100.0); // Default fuel capacity
+    }
+
+    public StrategyOptimizer(RaceCar raceCar, Track track, int totalLaps, double fuelCapacity) {
         this.raceCar = raceCar;
         this.track = track;
         this.totalLaps = totalLaps;
+        this.fuelCapacity = fuelCapacity;
         this.configManager = ConfigurationManager.getInstance();
         
         // Load configuration parameters
         this.minFuelLevel = (double) configManager.getConfigValue("strategy", "parameters", "defaultParameters", "minFuelLevel");
-        this.maxFuelLevel = (double) configManager.getConfigValue("strategy", "parameters", "defaultParameters", "maxFuelLevel");
+        this.maxFuelLevel = fuelCapacity;
         this.tyreWearThreshold = (double) configManager.getConfigValue("strategy", "parameters", "defaultParameters", "tyreWearThreshold");
         this.pitStopDuration = (double) configManager.getConfigValue("strategy", "parameters", "defaultParameters", "pitStopDuration");
         this.fuelFillRate = (double) configManager.getConfigValue("strategy", "parameters", "defaultParameters", "fuelFillRate");
     }
 
     public RaceStrategy optimizeStrategy() {
-        // Get preferred strategy based on track type
+        // Get preferred strategy based on track type and weather
         String trackType = track.getType().name();
-        String preferredTyreCompound = (String) configManager.getConfigValue(
-            "strategy", "trackTypePreferences", trackType, "preferredTyreCompound");
+        WeatherCondition weather = track.getWeatherCondition();
+        
+        // Get tyre compound preference based on weather
+        String preferredTyreCompound = getPreferredTyreCompound(trackType, weather);
         String fuelStrategy = (String) configManager.getConfigValue(
             "strategy", "trackTypePreferences", trackType, "fuelStrategy");
 
@@ -67,28 +76,43 @@ public class StrategyOptimizer {
         return strategy;
     }
 
+    private String getPreferredTyreCompound(String trackType, WeatherCondition weather) {
+        if (weather != null) {
+            return (String) configManager.getConfigValue(
+                "strategy", "weatherPreferences", weather.name(), "preferredTyreCompound");
+        }
+        return (String) configManager.getConfigValue(
+            "strategy", "trackTypePreferences", trackType, "preferredTyreCompound");
+    }
+
+    @SuppressWarnings("unchecked")
     private Tyre selectTyre(String compound) {
-        // In a real implementation, this would load the tyre from the configuration
-        // For now, we'll create a basic tyre
+        // Convert compound to proper format (e.g., "SOFT" -> "Soft Compound")
+        String tyreKey = compound.charAt(0) + compound.substring(1).toLowerCase() + " Compound";
+        Map<String, Object> tyreConfig = (Map<String, Object>) configManager.getConfigValue("car", "tyres", tyreKey);
+        if (tyreConfig == null) {
+            throw new IllegalArgumentException("Tyre compound not found in configuration: " + tyreKey);
+        }
         return new Tyre(
-            compound + " Tyre",
-            9.0,
-            2000.0,
-            "RaceTyre Co",
-            8.0,
-            1.5,
-            85.0,
+            tyreKey,
+            ((Number) tyreConfig.get("weight")).doubleValue(),
+            ((Number) tyreConfig.get("price")).doubleValue(),
+            (String) tyreConfig.get("manufacturer"),
+            ((Number) tyreConfig.get("grip")).doubleValue(),
+            ((Number) tyreConfig.get("wearRate")).doubleValue(),
+            ((Number) tyreConfig.get("durability")).doubleValue(),
             Tyre.TyreCompound.valueOf(compound)
         );
     }
 
     private double calculateInitialFuelLoad(RaceStrategy.FuelStrategy fuelStrategy) {
         double baseFuel = track.getLength() * track.getFuelConsumptionRate() * totalLaps;
-        return switch (fuelStrategy) {
+        double calculatedFuel = switch (fuelStrategy) {
             case CONSERVATIVE -> baseFuel * 1.1;
             case AGGRESSIVE -> baseFuel * 0.9;
             case BALANCED -> baseFuel;
         };
+        return Math.min(calculatedFuel, fuelCapacity);
     }
 
     private List<PitStop> calculatePitStops(Tyre startingTyre, RaceStrategy.FuelStrategy fuelStrategy) {
@@ -96,18 +120,22 @@ public class StrategyOptimizer {
         double currentFuel = calculateInitialFuelLoad(fuelStrategy);
         Tyre currentTyre = startingTyre;
         int lastPitStopLap = 0;
+        double totalFuelConsumed = 0;
 
         for (int lap = 1; lap <= totalLaps; lap++) {
             // Calculate fuel consumption for this lap
             double fuelConsumption = track.getFuelConsumptionRate() * 
                 (1 + (lap - lastPitStopLap) * 0.01); // Increase consumption as tyres wear
+            totalFuelConsumed += fuelConsumption;
 
             // Check if pit stop is needed
             if (needsPitStop(lap, currentFuel, fuelConsumption, currentTyre, lastPitStopLap)) {
-                PitStop pitStop = createPitStop(lap, currentFuel, currentTyre);
+                double fuelToAdd = Math.min(maxFuelLevel - currentFuel, fuelCapacity - currentFuel);
+                PitStop pitStop = createPitStop(lap, currentFuel, currentTyre, fuelToAdd);
                 pitStops.add(pitStop);
                 currentFuel = maxFuelLevel;
-                currentTyre = selectTyre("MEDIUM"); // Default to medium tyres for pit stops
+                // Select next tyre based on remaining laps and track conditions
+                currentTyre = selectNextTyre(lap, totalLaps);
                 lastPitStopLap = lap;
             }
 
@@ -115,6 +143,30 @@ public class StrategyOptimizer {
         }
 
         return pitStops;
+    }
+
+    private Tyre selectNextTyre(int currentLap, int totalLaps) {
+        int remainingLaps = totalLaps - currentLap;
+        String trackType = track.getType().name();
+        WeatherCondition weather = track.getWeatherCondition();
+
+        // For wet conditions, always use wet tyres
+        if (weather == WeatherCondition.WET) {
+            return selectTyre("SOFT"); // Using soft as wet tyres
+        }
+
+        // For remaining laps less than 10, use soft tyres for better grip
+        if (remainingLaps <= 10) {
+            return selectTyre("SOFT");
+        }
+
+        // For remaining laps between 10 and 20, use medium tyres
+        if (remainingLaps <= 20) {
+            return selectTyre("MEDIUM");
+        }
+
+        // For longer stints, use hard tyres
+        return selectTyre("HARD");
     }
 
     private boolean needsPitStop(int currentLap, double currentFuel, double fuelConsumption,
@@ -134,14 +186,13 @@ public class StrategyOptimizer {
         return false;
     }
 
-    private PitStop createPitStop(int lap, double currentFuel, Tyre currentTyre) {
-        double fuelToAdd = maxFuelLevel - currentFuel;
+    private PitStop createPitStop(int lap, double currentFuel, Tyre currentTyre, double fuelToAdd) {
         double duration = pitStopDuration + (fuelToAdd / fuelFillRate);
         
         return new PitStop(
             lap,
             duration,
-            selectTyre("MEDIUM"),
+            selectNextTyre(lap, totalLaps),
             fuelToAdd,
             PitStop.PitStopType.BOTH
         );

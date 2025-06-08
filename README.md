@@ -80,6 +80,46 @@ src/
 3. Calculate performance metrics
 4. Analyze lap times and fuel consumption
 
+## Config
+
+1. Car Configuration:
+   - `carName`: Any string name for your race car
+   
+   - `engineName`: Choose from:
+     * "Turbo V6" (450hp, good fuel efficiency)
+     * "V8 Hybrid" (1000hp, low fuel efficiency)
+     * "V10" (1200hp, very low fuel efficiency)
+   
+   - `tyreName`: Choose from:
+     * "Soft Compound" (high grip, low durability)
+     * "Medium Compound" (balanced grip and durability)
+     * "Hard Compound" (low grip, high durability)
+   
+   - `aeroKitName`: Choose from:
+     * "Standard Kit" (balanced performance)
+     * "Downforce-Focussed Kit" (high downforce, lower top speed)
+     * "Low-Drag Kit" (low drag, high top speed)
+     * "Adjustable Aero Kit" (versatile performance)
+     * "Ground Effect Kit" (high downforce)
+     * "Drag Reduction System Kit" (DRS for overtaking)
+     * "Wet Weather Kit" (optimized for wet conditions)
+     * "Hybrid Kit" (balanced performance)
+     * "Extreme Aero Kit" (maximum downforce)
+
+2. Track Configuration:
+   - `trackName`: Choose from:
+     * "Technical Park" (technical circuit, 16 corners)
+     * "Speedway Oval" (high-speed oval, 4 corners)
+     * "Mountain Pass" (mixed circuit, 12 corners)
+     * "City Circuit" (technical street circuit, 14 corners)
+     * "Coastal Run" (mixed circuit, 10 corners)
+   
+   - `totalLaps`: Any positive integer
+   
+   - `weather`: Can be null (uses track's default weather) or set to:
+     * "DRY"
+     * "WET"
+     * "VARIABLE"
 ## Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.
 

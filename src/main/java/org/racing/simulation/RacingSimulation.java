@@ -17,8 +17,13 @@ public class RacingSimulation {
     private String trackName;
     private int totalLaps;
     private WeatherCondition weather;
+    private double fuelCapacity;
 
     public RacingSimulation(String carName, String engineName, String tyreName, String aeroKitName, String trackName, int totalLaps, WeatherCondition weather) {
+        this(carName, engineName, tyreName, aeroKitName, trackName, totalLaps, weather, 100.0); // Default fuel capacity
+    }
+
+    public RacingSimulation(String carName, String engineName, String tyreName, String aeroKitName, String trackName, int totalLaps, WeatherCondition weather, double fuelCapacity) {
         this.carName = carName;
         this.engineName = engineName;
         this.tyreName = tyreName;
@@ -26,11 +31,12 @@ public class RacingSimulation {
         this.trackName = trackName;
         this.totalLaps = totalLaps;
         this.weather = weather;
+        this.fuelCapacity = fuelCapacity;
     }
 
     private static final ConfigurationManager configManager = ConfigurationManager.getInstance();
 
-    public RaceStrategy runSimulation() {
+    public RaceStrategy run() {
         
         // Create car components from configuration
         Engine engine = createEngineFromConfig(engineName);
@@ -42,12 +48,10 @@ public class RacingSimulation {
 
         // Load and configure track
         Track track = configManager.loadTrack(trackName);
-        if (weather != null) {
-            track.setWeather(weather);
-        }
+        track.setWeather(weather);
 
         // Create and run strategy optimizer
-        StrategyOptimizer optimizer = new StrategyOptimizer(raceCar, track, totalLaps);
+        StrategyOptimizer optimizer = new StrategyOptimizer(raceCar, track, totalLaps, fuelCapacity);
         RaceStrategy strategy = optimizer.optimizeStrategy();
         return strategy;
     }
