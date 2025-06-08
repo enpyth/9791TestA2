@@ -1,65 +1,60 @@
-# Race Strategy Optimiser and Car Customisation Tool
+# Racing Simulation System
 
 ## Overview
-This Java-based application simulates a race team management system, allowing users to customize race cars and optimize race strategies. The system provides detailed car customization options and sophisticated race strategy planning based on various track conditions and car configurations.
+This Java-based application simulates a racing system that models race cars, tracks, and racing strategies. The system provides detailed track characteristics, weather conditions, and performance calculations for racing simulations.
 
 ## Features
 
-### Car Customisation
-- **Engine Selection**: Choose from various engine types (standard, turbocharged, etc.)
-- **Tyre Management**: Select from different tyre compounds (soft, medium, hard)
-- **Aerodynamic Kits**: 9 different aerodynamic configurations available:
-  - Standard Kit
-  - Downforce-Focused Kit
-  - Low-Drag Kit
-  - Adjustable Aero Kit
-  - Ground Effect Kit
-  - Drag Reduction System (DRS) Kit
-  - Wet Weather Kit
-  - Hybrid Kit
-  - Extreme Aero Kit
+### Track Management
+- **Track Types**: Technical, Speed, and Mixed circuits
+- **Track Characteristics**:
+  - Length and number of corners
+  - Average speed and grip level
+  - Weather conditions
+  - Detailed track descriptions
 
-### Race Strategy Optimisation
-- Track-specific strategy planning
-- Weather condition consideration
-- Fuel consumption optimization
-- Tyre wear management
-- Pit stop timing calculations
+### Weather System
+- Dynamic weather conditions affecting track performance
+- Weather impact on racing strategy
+- Default weather conditions for each track
+
+### Performance Calculations
+- Fuel consumption rate calculations
+- Estimated lap time calculations
+- Performance metrics based on track characteristics
+- Car performance impact on lap times
 
 ## Technical Specifications
 
-### Aerodynamic Kit Performance Metrics
-Each aerodynamic kit affects the following performance parameters:
-- Drag Coefficient (Cd)
-- Downforce (kg)
-- Top Speed (km/h)
-- Fuel Efficiency (km/l)
-- Cornering Ability (rating out of 10)
+### Track Properties
+Each track includes the following characteristics:
+- Name and description
+- Length (in appropriate units)
+- Number of corners
+- Track type (Technical, Speed, Mixed)
+- Average speed
+- Grip level
+- Weather conditions
 
-### Track Types
-The system supports various track types including:
-- High-speed circuits
-- Technical circuits
-- Mixed circuits
-- Wet weather conditions
+### Performance Metrics
+The system calculates:
+- Fuel consumption based on track length and corners
+- Lap times considering:
+  - Track length
+  - Number of corners
+  - Car performance
+  - Weather conditions
 
 ## Getting Started
 
 ### Prerequisites
 - Java Development Kit (JDK) 11 or higher
-- Maven or Gradle build tool
+- Maven build tool
 
 ### Installation
 1. Clone the repository
-2. Build the project using Maven/Gradle
+2. Build the project using Maven
 3. Run the application
-
-## Usage
-1. Launch the application
-2. Select or create a car configuration
-3. Choose a track and conditions
-4. Generate and optimize race strategy
-5. View detailed performance metrics and recommendations
 
 ## Project Structure
 ```
@@ -67,17 +62,23 @@ src/
 ├── main/
 │   ├── java/
 │   │   └── org/
-│   │       └── example/
-│   │           ├── car/
-│   │           ├── strategy/
+│   │       └── racing/
 │   │           ├── track/
-│   │           └── ui/
+│   │           │   ├── Track.java
+│   │           │   └── WeatherCondition.java
+│   │           └── car/
 │   └── resources/
 └── test/
     └── java/
         └── org/
-            └── example/
+            └── racing/
 ```
+
+## Usage
+1. Create track configurations with specific characteristics
+2. Set weather conditions for the track
+3. Calculate performance metrics
+4. Analyze lap times and fuel consumption
 
 ## Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -86,5 +87,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
-- Formula 1 racing for inspiration
 - Racing simulation communities for feedback and testing 
