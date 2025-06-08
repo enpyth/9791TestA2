@@ -1,0 +1,161 @@
+{
+  "engines": {
+    "Turbo V6": {
+      "weight": 150.0,
+      "price": 50000.0,
+      "manufacturer": "SpeedTech",
+      "power": 450.0,
+      "fuelEfficiency": 8.5,
+      "reliability": 0.85,
+      "type": "TURBO"
+    },
+    "V8 Hybrid": {
+      "weight": 150.0,
+      "price": 120000.0,
+      "manufacturer": "HybridPower",
+      "power": 1000.0,
+      "fuelEfficiency": 2.5,
+      "reliability": 0.85,
+      "type": "HYBRID"
+    },
+    "V10": {
+      "weight": 180.0,
+      "price": 150000.0,
+      "manufacturer": "PowerMax",
+      "power": 1200.0,
+      "fuelEfficiency": 1.5,
+      "reliability": 0.80,
+      "type": "NATURALLY_ASPIRATED"
+    }
+  },
+  "tyres": {
+    "Soft Compound": {
+      "weight": 10.0,
+      "price": 2000.0,
+      "manufacturer": "GripMaster",
+      "grip": 9.5,
+      "wearRate": 0.8,
+      "durability": 0.7,
+      "compound": "SOFT"
+    },
+    "Medium Compound": {
+      "weight": 9.0,
+      "price": 1800.0,
+      "manufacturer": "RaceTyre Co",
+      "grip": 8.5,
+      "wearRate": 0.6,
+      "durability": 0.8,
+      "compound": "MEDIUM"
+    },
+    "Hard Compound": {
+      "weight": 9.5,
+      "price": 1600.0,
+      "manufacturer": "RaceTyre Co",
+      "grip": 7.5,
+      "wearRate": 0.4,
+      "durability": 0.9,
+      "compound": "HARD"
+    }
+  },
+  "aerodynamicKits": {
+    "Standard Kit": {
+      "weight": 50.0,
+      "price": 15000.0,
+      "manufacturer": "AeroTech",
+      "dragCoefficient": 0.3,
+      "downforce": 8.0,
+      "topSpeed": 320.0,
+      "corneringAbility": 8.5,
+      "fuelEfficiency": 0.9,
+      "type": "STANDARD"
+    },
+    "Downforce-Focussed Kit": {
+      "weight": 50.0,
+      "price": 45000.0,
+      "manufacturer": "AeroTech",
+      "dragCoefficient": 0.35,
+      "downforce": 350.0,
+      "topSpeed": 220.0,
+      "corneringAbility": 9.0,
+      "fuelEfficiency": 0.8,
+      "type": "DOWNFORCE_FOCUSED"
+    },
+    "Low-Drag Kit": {
+      "weight": 40.0,
+      "price": 40000.0,
+      "manufacturer": "AeroTech",
+      "dragCoefficient": 0.25,
+      "downforce": 150.0,
+      "topSpeed": 280.0,
+      "corneringAbility": 5.0,
+      "fuelEfficiency": 0.95,
+      "type": "SPEED_FOCUSED"
+    },
+    "Adjustable Aero Kit": {
+      "weight": 48.0,
+      "price": 55000.0,
+      "manufacturer": "AeroTech",
+      "dragCoefficient": 0.31,
+      "downforce": 250.0,
+      "topSpeed": 250.0,
+      "corneringAbility": 7.5,
+      "fuelEfficiency": 12.0,
+      "type": "ADJUSTABLE"
+    },
+    "Ground Effect Kit": {
+      "weight": 52.0,
+      "price": 60000.0,
+      "manufacturer": "AeroTech",
+      "dragCoefficient": 0.27,
+      "downforce": 400.0,
+      "topSpeed": 240.0,
+      "corneringAbility": 8.0,
+      "fuelEfficiency": 12.0,
+      "type": "GROUND_EFFECT"
+    },
+    "Drag Reduction System Kit": {
+      "weight": 42.0,
+      "price": 65000.0,
+      "manufacturer": "AeroTech",
+      "dragCoefficient": 0.25,
+      "downforce": 200.0,
+      "topSpeed": 290.0,
+      "corneringAbility": 6.0,
+      "fuelEfficiency": 13.0,
+      "type": "DRS"
+    },
+    "Wet Weather Kit": {
+      "weight": 55.0,
+      "price": 42000.0,
+      "manufacturer": "AeroTech",
+      "dragCoefficient": 0.32,
+      "downforce": 220.0,
+      "topSpeed": 230.0,
+      "corneringAbility": 7.0,
+      "fuelEfficiency": 11.0,
+      "type": "WET_WEATHER"
+    },
+    "Hybrid Kit": {
+      "weight": 46.0,
+      "price": 58000.0,
+      "manufacturer": "AeroTech",
+      "dragCoefficient": 0.29,
+      "downforce": 260.0,
+      "topSpeed": 260.0,
+      "corneringAbility": 7.0,
+      "fuelEfficiency": 12.0,
+      "type": "HYBRID"
+    },
+    "Extreme Aero Kit": {
+      "weight": 60.0,
+      "price": 70000.0,
+      "manufacturer": "AeroTech",
+      "dragCoefficient": 0.40,
+      "downforce": 500.0,
+      "topSpeed": 200.0,
+      "corneringAbility": 10.0,
+      "fuelEfficiency": 9.0,
+      "type": "EXTREME"
+    }
+  }
+} 

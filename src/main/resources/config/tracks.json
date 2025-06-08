@@ -1,0 +1,54 @@
+{
+  "tracks": [
+    {
+      "name": "Technical Park",
+      "length": 4.2,
+      "corners": 16,
+      "type": "TECHNICAL",
+      "defaultWeather": "DRY",
+      "averageSpeed": 180.0,
+      "gripLevel": 2.2,
+      "description": "A technical circuit with many tight corners and elevation changes"
+    },
+    {
+      "name": "Speedway Oval",
+      "length": 2.5,
+      "corners": 4,
+      "type": "SPEED",
+      "defaultWeather": "DRY",
+      "averageSpeed": 220.0,
+      "gripLevel": 1.8,
+      "description": "High-speed oval track with long straights and banked corners"
+    },
+    {
+      "name": "Mountain Pass",
+      "length": 5.8,
+      "corners": 12,
+      "type": "MIXED",
+      "defaultWeather": "VARIABLE",
+      "averageSpeed": 160.0,
+      "gripLevel": 2.0,
+      "description": "Challenging mountain circuit with varying weather conditions"
+    },
+    {
+      "name": "City Circuit",
+      "length": 3.8,
+      "corners": 14,
+      "type": "TECHNICAL",
+      "defaultWeather": "DRY",
+      "averageSpeed": 150.0,
+      "gripLevel": 2.4,
+      "description": "Street circuit with tight corners and narrow sections"
+    },
+    {
+      "name": "Coastal Run",
+      "length": 4.5,
+      "corners": 10,
+      "type": "MIXED",
+      "defaultWeather": "VARIABLE",
+      "averageSpeed": 190.0,
+      "gripLevel": 2.1,
+      "description": "Coastal circuit with long straights and technical sections"
+    }
+  ]
+} 

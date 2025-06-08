@@ -1,0 +1,39 @@
+{
+  "parameters": {
+    "defaultParameters": {
+      "minFuelLevel": 0.2,
+      "maxFuelLevel": 0.9,
+      "tyreWearThreshold": 0.3,
+      "pitStopDuration": 2.5,
+      "fuelFillRate": 2.0
+    }
+  },
+  "trackTypePreferences": {
+    "TECHNICAL": {
+      "preferredTyreCompound": "SOFT",
+      "fuelStrategy": "CONSERVATIVE"
+    },
+    "SPEED": {
+      "preferredTyreCompound": "HARD",
+      "fuelStrategy": "AGGRESSIVE"
+    },
+    "MIXED": {
+      "preferredTyreCompound": "MEDIUM",
+      "fuelStrategy": "BALANCED"
+    }
+  },
+  "weatherPreferences": {
+    "DRY": {
+      "preferredTyreCompound": "MEDIUM",
+      "aeroAdjustment": 0.0
+    },
+    "WET": {
+      "preferredTyreCompound": "SOFT",
+      "aeroAdjustment": 0.1
+    },
+    "INTERMEDIATE": {
+      "preferredTyreCompound": "MEDIUM",
+      "aeroAdjustment": 0.05
+    }
+  }
+} 

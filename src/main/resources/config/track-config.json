@@ -1,0 +1,49 @@
+{
+  "tracks": [
+    {
+      "name": "Speedway Circuit",
+      "length": 5.5,
+      "numberOfCorners": 8,
+      "type": "HIGH_SPEED",
+      "weatherCondition": "DRY",
+      "averageSpeed": 220.0,
+      "fuelConsumptionRate": 2.8
+    },
+    {
+      "name": "Technical Park",
+      "length": 4.2,
+      "numberOfCorners": 16,
+      "type": "TECHNICAL",
+      "weatherCondition": "DRY",
+      "averageSpeed": 180.0,
+      "fuelConsumptionRate": 2.2
+    },
+    {
+      "name": "Mixed Challenge",
+      "length": 5.0,
+      "numberOfCorners": 12,
+      "type": "MIXED",
+      "weatherCondition": "DRY",
+      "averageSpeed": 200.0,
+      "fuelConsumptionRate": 2.5
+    },
+    {
+      "name": "Wet Circuit",
+      "length": 4.8,
+      "numberOfCorners": 14,
+      "type": "MIXED",
+      "weatherCondition": "WET",
+      "averageSpeed": 160.0,
+      "fuelConsumptionRate": 2.3
+    },
+    {
+      "name": "Intermediate Track",
+      "length": 4.5,
+      "numberOfCorners": 10,
+      "type": "MIXED",
+      "weatherCondition": "INTERMEDIATE",
+      "averageSpeed": 190.0,
+      "fuelConsumptionRate": 2.4
+    }
+  ]
+} 
