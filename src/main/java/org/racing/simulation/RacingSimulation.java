@@ -1,4 +1,4 @@
-package org.racing;
+package org.racing.simulation;
 
 import org.racing.car.*;
 import org.racing.config.ConfigurationManager;
@@ -8,49 +8,48 @@ import org.racing.track.Track;
 import org.racing.track.WeatherCondition;
 import java.util.Map;
 
-/**
- * Example class demonstrating how to use the racing strategy system.
- */
+
 public class RacingSimulation {
+    private String carName;
+    private String engineName;
+    private String tyreName;
+    private String aeroKitName;
+    private String trackName;
+    private int totalLaps;
+    private WeatherCondition weather;
+
+    public RacingSimulation(String carName, String engineName, String tyreName, String aeroKitName, String trackName, int totalLaps, WeatherCondition weather) {
+        this.carName = carName;
+        this.engineName = engineName;
+        this.tyreName = tyreName;
+        this.aeroKitName = aeroKitName;
+        this.trackName = trackName;
+        this.totalLaps = totalLaps;
+        this.weather = weather;
+    }
+
     private static final ConfigurationManager configManager = ConfigurationManager.getInstance();
 
-    public static void main(String[] args) {
-        // Create a race car with components from configuration
-        Engine engine = createEngineFromConfig("Turbo V6");
-        Tyre tyres = createTyreFromConfig("Soft Compound");
-        AerodynamicKit aeroKit = createAeroKitFromConfig("Standard Kit");
+    public RaceStrategy runSimulation() {
+        
+        // Create car components from configuration
+        Engine engine = createEngineFromConfig(engineName);
+        Tyre tyres = createTyreFromConfig(tyreName);
+        AerodynamicKit aeroKit = createAeroKitFromConfig(aeroKitName);
 
-        RaceCar raceCar = new RaceCar("Speed Demon", engine, tyres, aeroKit);
+        // Create race car
+        RaceCar raceCar = new RaceCar(carName, engine, tyres, aeroKit);
 
-        // Load track from configuration
-        Track track = configManager.loadTrack("Technical Park");
+        // Load and configure track
+        Track track = configManager.loadTrack(trackName);
+        if (weather != null) {
+            track.setWeather(weather);
+        }
 
-        // Create strategy optimizer
-        int totalLaps = 50;
+        // Create and run strategy optimizer
         StrategyOptimizer optimizer = new StrategyOptimizer(raceCar, track, totalLaps);
-
-        // Optimize race strategy
         RaceStrategy strategy = optimizer.optimizeStrategy();
-
-        // Print race information
-        System.out.println("=== Race Information ===");
-        System.out.println("Track: " + track.getName());
-        System.out.println("Total Laps: " + totalLaps);
-        System.out.println("Weather: " + track.getWeatherCondition());
-        System.out.println("\n=== Car Configuration ===");
-        System.out.println("Car: " + raceCar.getName());
-        System.out.println("Engine: " + engine.getName() + " (" + engine.getType() + ")");
-        System.out.println("Tyres: " + tyres.getName() + " (" + tyres.getCompound() + ")");
-        System.out.println("Aero Kit: " + aeroKit.getName() + " (" + aeroKit.getType() + ")");
-        System.out.println("\n=== Performance Metrics ===");
-        PerformanceMetrics metrics = raceCar.getPerformanceMetrics();
-        System.out.printf("Speed: %.2f km/h\n", metrics.getSpeed());
-        System.out.printf("Handling: %.2f/10\n", metrics.getHandling());
-        System.out.printf("Fuel Efficiency: %.2f km/l\n", metrics.getFuelEfficiency());
-        System.out.printf("Cornering Ability: %.2f/10\n", metrics.getCorneringAbility());
-        System.out.printf("Overall Performance: %.2f/100\n", metrics.getOverallPerformance());
-        System.out.println("\n=== Optimized Race Strategy ===");
-        System.out.println(strategy);
+        return strategy;
     }
 
     @SuppressWarnings("unchecked")
@@ -99,4 +98,4 @@ public class RacingSimulation {
             AerodynamicKit.KitType.valueOf((String) kitConfig.get("type"))
         );
     }
-} 
+}

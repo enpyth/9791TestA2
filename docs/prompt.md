@@ -168,3 +168,11 @@ Exception in thread "main" java.lang.IllegalArgumentException: No enum constant 
 	at org.racing.RacingSimulation.main(RacingSimulation.java:19)
 
 Process finished with exit code 1
+
+# Prompt 18
+
+In RacingSimulation.java, create a simulation method in which user can set necessary parameter. And in main mthod, you should call the simulation method. Simulation method should be testable.
+
+# Prompt 19
+
+You should consider code structure, move SimulationResult to a new file. And write the command what parameter can I set.
