@@ -1,5 +1,7 @@
 # Racing Simulation System
 
+This project is for Assignment2, and the report path is 'docs/REPORT.pdf'.
+
 ## Overview
 This Java-based application simulates a racing system that models race cars, tracks, and racing strategies. The system provides detailed track characteristics, weather conditions, and performance calculations for racing simulations.
 
